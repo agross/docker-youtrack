@@ -154,19 +154,19 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
   if [ $(semanage port --list | grep --count "^http_port_t.*$PORT") -eq 0 ]; then
     if semanage port --add --type http_port_t --proto tcp $PORT; then
       echo Added port $PORT as a valid port for nginx:
-      semanage port --list |  grep ^http_port_t
+      semanage port --list | grep ^http_port_t
     else
       >&2 echo Could not add port $PORT as a valid port for nginx. Please add it yourself. More information: http://axilleas.me/en/blog/2013/selinux-policy-for-nginx-and-gitlab-unix-socket-in-fedora-19/
     fi
   else
     echo Port $PORT is already a valid port for nginx:
-    semanage port --list |  grep ^http_port_t
+    semanage port --list | grep ^http_port_t
   fi
   ```
 
 8. Configure YouTrack.
 
-    Follow the steps of the installation [instructions for JetBrains YouTrack](https://confluence.jetbrains.com/display/YTD65/Installing+YouTrack+with+ZIP+Distribution) using paths inside the docker container located under
+  Follow the steps of the installation [instructions for JetBrains YouTrack](https://confluence.jetbrains.com/display/YTD65/Installing+YouTrack+with+ZIP+Distribution) using paths inside the docker container located under
 
     * `/youtrack/backups`,
     * `/youtrack/data`,

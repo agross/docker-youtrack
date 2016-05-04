@@ -181,7 +181,7 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
   systemctl stop youtrack.service
 
   # Back up $YOUTRACK_DATA.
-  tar -zcvf youtrack-data-$(date --iso-8601=seconds --universal).tar.gz "$YOUTRACK_DATA"
+  tar -zcvf "youtrack-data-$(date +%F-%H-%M-%S).tar.gz" "$YOUTRACK_DATA"
 
   docker rm youtrack
 

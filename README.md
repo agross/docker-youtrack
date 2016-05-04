@@ -1,6 +1,6 @@
 # docker-youtrack
 
-[![](https://imagelayers.io/badge/agross/youtrack:latest.svg)](https://imagelayers.io/?images=agross/youtrack:latest 'Get your own badge on imagelayers.io') [![Docker Stars](https://img.shields.io/docker/stars/agross/docker.svg?maxAge=2592000)]()
+[![](https://imagelayers.io/badge/agross/youtrack:latest.svg)](https://imagelayers.io/?images=agross/youtrack:latest 'Get your own badge on imagelayers.io')
 
 This Dockerfile allows you to build images to deploy your own [YouTrack](http://www.jetbrains.com/youtrack/) instance. It has been tested on [Fedora 23](https://getfedora.org/) and [CentOS 7](https://www.centos.org/).
 

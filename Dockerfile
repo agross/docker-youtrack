@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-glibc
 MAINTAINER Alexander Groß <agross@therightstuff.de>
 
-ENV YOUTRACK_VERSION=6.5.17031
+ENV YOUTRACK_VERSION=6.5.17057
 
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

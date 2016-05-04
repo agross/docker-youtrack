@@ -17,7 +17,7 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
 
 3. Open your browser and navigate to `http://localhost:8080`.
 
-## Run it as service in on systemd
+## Run it as service on systemd
 
 1. Decide where to put YouTrack data and logs. Set domain name/server name and the public port.
 

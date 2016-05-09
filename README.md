@@ -40,7 +40,7 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
 
 3. Set permissions.
 
-  The Dockerfile creates a `youtrack` user and group. This user has a `UID` and `GID` of `5000`. Make sure to add a user to your host system with this `UID` and `GID` and allow this user to read and write to `$YOUTRACK_DATA` and `/var/log/youtrack`. The name of the host user and group in not important.
+  The Dockerfile creates a `youtrack` user and group. This user has a `UID` and `GID` of `5000`. Make sure to add a user to your host system with this `UID` and `GID` and allow this user to read and write to `$YOUTRACK_DATA` and `$YOUTRACK_LOGS`. The name of the host user and group in not important.
 
   ```sh
   # Create youtrack group and user in docker host, e.g.:

@@ -1,8 +1,6 @@
 FROM frolvlad/alpine-glibc
 MAINTAINER Alexander Groß <agross@therightstuff.de>
 
-ENV YOUTRACK_VERSION=6.5.17057
-
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["youtrack", "run"]
@@ -11,7 +9,8 @@ EXPOSE 8080
 
 WORKDIR /youtrack
 
-RUN \
+RUN YOUTRACK_VERSION=6.5.17057 && \
+    \
     echo Creating youtrack user and group with static ID of 5000 && \
     addgroup -g 5000 -S youtrack && \
     adduser -g "JetBrains YouTrack" -S -h "$(pwd)" -u 5000 -G youtrack youtrack && \

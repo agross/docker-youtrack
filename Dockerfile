@@ -23,7 +23,7 @@ RUN YOUTRACK_VERSION=6.5.17057 && \
     \
     DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$YOUTRACK_VERSION.zip && \
     echo Downloading $DOWNLOAD_URL to $(pwd) && \
-    wget "$DOWNLOAD_URL" --no-verbose --output-document youtrack.zip && \
+    wget "$DOWNLOAD_URL" --progress bar:force:noscroll --output-document youtrack.zip && \
     \
     echo Extracting to $(pwd) && \
     unzip ./youtrack.zip -d . -x internal/java/linux-amd64/man/* internal/java/windows-amd64/* internal/java/mac-x64/* && \

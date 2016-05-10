@@ -98,14 +98,14 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
   $YOUTRACK_LOGS/youtrack/*.log
   $YOUTRACK_LOGS/youtrack/logs/*.log
   $YOUTRACK_LOGS/internal/services/bundleProcess/*.log
-   {
-      rotate 7
-      daily
-      missingok
-      notifempty
-      sharedscripts
-      copytruncate
-      compress
+  {
+    rotate 7
+    daily
+    missingok
+    notifempty
+    sharedscripts
+    copytruncate
+    compress
   }
   EOF
   ```

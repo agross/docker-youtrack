@@ -26,7 +26,7 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
   YOUTRACK_LOGS="/var/log/youtrack"
 
   DOMAIN=example.com
-  PORT=8011
+  PORT=8012
   ```
 
 2. Create directories to store data and logs outside of the container.

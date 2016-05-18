@@ -101,6 +101,7 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
   {
     rotate 7
     daily
+    dateext
     missingok
     notifempty
     sharedscripts

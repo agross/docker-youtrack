@@ -26,7 +26,11 @@ RUN YOUTRACK_VERSION=6.5.17057 && \
     wget "$DOWNLOAD_URL" --progress bar:force:noscroll --output-document youtrack.zip && \
     \
     echo Extracting to $(pwd) && \
-    unzip ./youtrack.zip -d . -x internal/java/linux-amd64/man/* internal/java/windows-amd64/* internal/java/mac-x64/* && \
+    unzip ./youtrack.zip \
+      -d . \
+      -x internal/java/linux-amd64/man/* \
+         internal/java/windows-amd64/* \
+         internal/java/mac-x64/* && \
     rm -f youtrack.zip && \
     \
     chown -R youtrack:youtrack . && \

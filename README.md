@@ -55,8 +55,11 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
 
   *Note:* The `:z` option on the volume mounts makes sure the SELinux context of the directories are [set appropriately.](http://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/)
 
+  `/etc/localtime` needs to be bind-mounted to use the same time zone as your docker host.
+
   ```sh
   docker create -it -p $PORT:8080 \
+                    -v /etc/localtime:/etc/localtime:ro \
                     -v "$YOUTRACK_DATA/backups:/youtrack/backups:z" \
                     -v "$YOUTRACK_DATA/conf:/youtrack/conf:z" \
                     -v "$YOUTRACK_DATA/data:/youtrack/data:z" \

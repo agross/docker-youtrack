@@ -9,8 +9,7 @@ EXPOSE 8080
 
 WORKDIR /youtrack
 
-RUN YOUTRACK_VERSION=7.0.28110 && \
-    YOUTRACK_VERSION_PATCH=${YOUTRACK_VERSION##*.} && \
+RUN YOUTRACK_VERSION=7.0.28450 && \
     \
     echo Creating youtrack user and group with static ID of 5000 && \
     addgroup -g 5000 -S youtrack && \
@@ -29,12 +28,12 @@ RUN YOUTRACK_VERSION=7.0.28110 && \
     echo Extracting to $(pwd) && \
     unzip ./youtrack.zip \
       -d . \
-      -x youtrack-$YOUTRACK_VERSION_PATCH/internal/java/linux-amd64/man/* \
-         youtrack-$YOUTRACK_VERSION_PATCH/internal/java/windows-amd64/* \
-         youtrack-$YOUTRACK_VERSION_PATCH/internal/java/mac-x64/* && \
+      -x youtrack-$YOUTRACK_VERSION/internal/java/linux-amd64/man/* \
+         youtrack-$YOUTRACK_VERSION/internal/java/windows-amd64/* \
+         youtrack-$YOUTRACK_VERSION/internal/java/mac-x64/* && \
     rm -f youtrack.zip && \
-    mv youtrack-$YOUTRACK_VERSION_PATCH/* . && \
-    rm -rf youtrack-$YOUTRACK_VERSION_PATCH && \
+    mv youtrack-$YOUTRACK_VERSION/* . && \
+    rm -rf youtrack-$YOUTRACK_VERSION && \
     \
     chown -R youtrack:youtrack . && \
     chmod +x /docker-entrypoint.sh \

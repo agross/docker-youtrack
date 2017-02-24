@@ -141,14 +141,32 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
     chunked_transfer_encoding on;
 
     location / {
-      proxy_pass http://youtrack;
+      proxy_pass         http://youtrack;
 
-      proxy_set_header Host \$host;
-      proxy_set_header X-Real-IP \$remote_addr;
-      proxy_set_header X-Forwarded-Host \$http_host;
-      proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto \$scheme;
+      proxy_set_header   Host              \$host;
+      proxy_set_header   X-Real-IP         \$remote_addr;
+      proxy_set_header   X-Forwarded-Host  \$http_host;
+      proxy_set_header   X-Forwarded-For   \$proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto \$scheme;
       proxy_http_version 1.1;
+    }
+
+    location /api/eventSourceBus {
+      proxy_pass         http://youtrack;
+
+      proxy_set_header   Host              \$host;
+      proxy_set_header   X-Real-IP         \$remote_addr;
+      proxy_set_header   X-Forwarded-Host  \$http_host;
+      proxy_set_header   X-Forwarded-For   \$proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto \$scheme;
+      proxy_http_version 1.1;
+
+      proxy_cache        off;
+      proxy_buffering    off;
+      proxy_read_timeout 86400s;
+      proxy_send_timeout 86400s;
+      proxy_set_header   Connection        '';
+      chunked_transfer_encoding off;
     }
   }
   EOF

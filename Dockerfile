@@ -1,5 +1,5 @@
 FROM frolvlad/alpine-glibc
-MAINTAINER Alexander Groß <agross@therightstuff.de>
+LABEL maintainer "Alexander Groß <agross@therightstuff.de>"
 
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

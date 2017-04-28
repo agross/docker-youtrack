@@ -194,10 +194,10 @@ This Dockerfile allows you to build images to deploy your own [YouTrack](http://
 
   Follow the steps of the installation [instructions for JetBrains YouTrack](https://confluence.jetbrains.com/display/YTD65/Installing+YouTrack+with+ZIP+Distribution) using paths inside the docker container located under
 
-    * `/youtrack/backups`,
-    * `/youtrack/data`,
-    * `/youtrack/logs` and
-    * `/youtrack/temp`.
+  * `/youtrack/backups`,
+  * `/youtrack/data`,
+  * `/youtrack/logs` and
+  * `/youtrack/temp`.
 
 9. Update to a newer version.
 

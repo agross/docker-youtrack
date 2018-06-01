@@ -9,7 +9,7 @@ EXPOSE 8080
 
 WORKDIR /youtrack
 
-RUN YOUTRACK_VERSION=2018.1.39916 && \
+RUN YOUTRACK_VERSION=2018.2.42133 && \
     \
     echo Creating youtrack user and group with static ID of 5000 && \
     addgroup -g 5000 -S youtrack && \

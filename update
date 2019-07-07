@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+test=
+force=
+while getopts ':tf' opt; do
+  case "$opt" in
+    t)
+      test=true
+      ;;
+
+    f)
+      force=true
+      ;;
+
+    '?')
+      printf 'Invalid option: -%s\n' "$OPTARG"
+      exit 1
+      ;;
+  esac
+done
+
+code='YTD'
+latest_release="https://data.services.jetbrains.com/products/releases?code=$code&latest=true"
+version_query="[.$code[0].version, .$code[0].build] | join(\".\")"
+notes_query=".$code[0].notesLink"
+
+json="$(curl --silent --show-error "$latest_release")"
+latest="$(echo "$json" | jq --raw-output --exit-status "$version_query")"
+current="$(sed -ne 's/ARG VERSION=//p' Dockerfile)"
+notes="$(echo "$json" | jq --raw-output --exit-status "$notes_query")"
+
+if [[ "$current" == "$latest" ]]; then
+  printf '%s is still the latest release\n' "$current"
+  [[ -z "$force" ]] && exit 2
+fi
+
+if [[ -n "$test" ]]; then
+  printf 'Testing docker build with version %s\n' "$latest"
+
+  if ! docker image build --label "test-build=$code" \
+                          --force-rm \
+                          --build-arg "VERSION=$latest" \
+                          .; then
+    exit 3
+  fi
+
+  docker image ls --quiet \
+                  --filter "label=test-build=$code" |
+    xargs --no-run-if-empty docker image rm
+fi
+
+printf 'Updating Dockerfile from version %s to version %s\n' "$current" "$latest"
+sed -i "s/\(ARG VERSION=\).*/\1$latest/" Dockerfile
+
+message="$(printf 'Update to %s\n\nRelease notes: %s\n' "$latest" "$notes")"
+git commit --message "$message" \
+           -- \
+           Dockerfile
+
+git tag "$latest"

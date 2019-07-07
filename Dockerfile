@@ -12,31 +12,42 @@ WORKDIR /youtrack
 HEALTHCHECK --start-period=1m \
             CMD wget --server-response --output-document=/dev/null http://localhost:8080 || exit 1
 
-RUN YOUTRACK_VERSION=2019.1.51932 && \
-    \
-    echo Creating youtrack user and group with static ID of 5000 && \
+ARG VERSION=2019.1.51932
+ARG DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$VERSION.zip
+ARG SHA_DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$VERSION.zip.sha256
+
+RUN echo Creating youtrack user and group with static ID of 5000 && \
     addgroup -g 5000 -S youtrack && \
     adduser -g "JetBrains YouTrack" -S -h "$(pwd)" -u 5000 -G youtrack youtrack && \
     \
     echo Installing packages && \
-    apk add --update coreutils \
-                     bash \
-                     wget \
-                     ca-certificates && \
+    apk add --update bash \
+                     ca-certificates \
+                     coreutils \
+                     wget && \
     \
-    DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$YOUTRACK_VERSION.zip && \
     echo Downloading $DOWNLOAD_URL to $(pwd) && \
-    wget "$DOWNLOAD_URL" --progress bar:force:noscroll --output-document youtrack.zip && \
+    wget --progress bar:force:noscroll \
+         "$DOWNLOAD_URL" && \
+    \
+    echo Verifying download && \
+    wget --progress bar:force:noscroll \
+         --output-document \
+         download.sha256 \
+         "$SHA_DOWNLOAD_URL" && \
+    \
+    sha256sum -c download.sha256 && \
+    rm download.sha256 && \
     \
     echo Extracting to $(pwd) && \
-    unzip ./youtrack.zip \
-      -d . \
-      -x youtrack-$YOUTRACK_VERSION/internal/java/linux-amd64/man/* \
-         youtrack-$YOUTRACK_VERSION/internal/java/windows-amd64/* \
-         youtrack-$YOUTRACK_VERSION/internal/java/mac-x64/* && \
-    rm -f youtrack.zip && \
-    mv youtrack-$YOUTRACK_VERSION/* . && \
-    rm -rf youtrack-$YOUTRACK_VERSION && \
+    unzip ./youtrack-$VERSION.zip \
+          -d . \
+          -x youtrack-$VERSION/internal/java/linux-amd64/man/* \
+             youtrack-$VERSION/internal/java/windows-amd64/* \
+             youtrack-$VERSION/internal/java/mac-x64/* && \
+    rm youtrack-$VERSION.zip && \
+    mv youtrack-$VERSION/* . && \
+    rm -r youtrack-$VERSION && \
     \
     chown -R youtrack:youtrack . && \
     chmod +x /docker-entrypoint.sh \

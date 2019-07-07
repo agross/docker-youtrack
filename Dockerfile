@@ -9,6 +9,9 @@ EXPOSE 8080
 
 WORKDIR /youtrack
 
+HEALTHCHECK --start-period=1m \
+            CMD wget --server-response --output-document=/dev/null http://localhost:8080 || exit 1
+
 RUN YOUTRACK_VERSION=2019.1.51932 && \
     \
     echo Creating youtrack user and group with static ID of 5000 && \

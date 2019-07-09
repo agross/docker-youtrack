@@ -23,8 +23,8 @@ done
 
 code='YTD'
 latest_release="https://data.services.jetbrains.com/products/releases?code=$code&latest=true"
-version_query="[.$code[0].version, .$code[0].build] | join(\".\")"
-notes_query=".$code[0].notesLink"
+version_query="[.${code}[0].version, .${code}[0].build] | join(\".\")"
+notes_query=".${code}[0].notesLink"
 
 json="$(curl --silent --show-error "$latest_release")"
 latest="$(echo "$json" | jq --raw-output --exit-status "$version_query")"

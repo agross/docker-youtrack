@@ -33,7 +33,7 @@ notes="$(echo "$json" | jq --raw-output --exit-status "$notes_query")"
 
 if [[ "$current" == "$latest" ]]; then
   printf '%s is still the latest release\n' "$current"
-  [[ -z "$force" ]] && exit 2
+  [[ -z "$force" ]] && exit
 fi
 
 if [[ -n "$test" ]]; then
@@ -43,7 +43,7 @@ if [[ -n "$test" ]]; then
                           --force-rm \
                           --build-arg "VERSION=$latest" \
                           .; then
-    exit 3
+    exit 2
   fi
 
   docker image ls --quiet \

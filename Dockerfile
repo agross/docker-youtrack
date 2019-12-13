@@ -12,7 +12,7 @@ WORKDIR /youtrack
 HEALTHCHECK --start-period=1m \
             CMD wget --server-response --output-document=/dev/null http://localhost:8080 || exit 1
 
-ARG VERSION=2019.2.61843
+ARG VERSION=2019.3.62399
 ARG DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$VERSION.zip
 ARG SHA_DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$VERSION.zip.sha256
 
@@ -51,6 +51,6 @@ RUN echo Creating youtrack user and group with static ID of 5000 && \
     \
     chown -R youtrack:youtrack . && \
     chmod +x /docker-entrypoint.sh \
-             ./internal/java/linux-x64/jre/bin/java
+             ./internal/java/linux-x64/bin/java
 
 USER youtrack

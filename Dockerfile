@@ -12,7 +12,7 @@ WORKDIR /youtrack
 HEALTHCHECK --start-period=1m \
             CMD wget --server-response --output-document=/dev/null http://localhost:8080 || exit 1
 
-ARG VERSION=2019.3.64090
+ARG VERSION=2019.3.64616
 ARG DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$VERSION.zip
 ARG SHA_DOWNLOAD_URL=https://download.jetbrains.com/charisma/youtrack-$VERSION.zip.sha256
 

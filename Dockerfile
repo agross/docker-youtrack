@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-glibc
+FROM frolvlad/alpine-glibc:alpine-3.14
 LABEL maintainer "Alexander Groß <agross@therightstuff.de>"
 
 COPY ./docker-entrypoint.sh /

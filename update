@@ -54,7 +54,7 @@ fi
 printf 'Updating Dockerfile from version %s to version %s\n' "$current" "$latest"
 sed -i "s/\(ARG VERSION=\).*/\1$latest/" Dockerfile
 
-message="$(printf 'Update to %s\n\nRelease notes: %s\n' "$latest" "$notes")"
+message="$(printf 'Update to %s\n\nRelease notes: %s\n' "$latest" "${notes// /%20}")"
 git commit --message "$message" \
            -- \
            Dockerfile

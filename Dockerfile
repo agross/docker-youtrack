@@ -36,6 +36,7 @@ RUN echo Creating youtrack user and group with static ID of 5000 && \
          download.sha256 \
          "$SHA_DOWNLOAD_URL" && \
     \
+    sed -ie 's|dist/||' download.sha256 && \
     sha256sum -c download.sha256 && \
     rm download.sha256 && \
     \

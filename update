@@ -39,16 +39,21 @@ fi
 if [[ -n "$test" ]]; then
   printf 'Testing docker build with version %s\n' "$latest"
 
-  if ! docker image build --label "test-build=$code" \
+  if ! docker image build --tag "agross/youtrack:$latest" \
+                          --tag agross/youtrack:latest \
                           --force-rm \
                           --build-arg "VERSION=$latest" \
                           .; then
     exit 2
   fi
 
-  docker image ls --quiet \
-                  --filter "label=test-build=$code" |
-    xargs --no-run-if-empty docker image rm
+  for image in "agross/youtrack:$latest" agross/youtrack:latest; do
+    if ! docker image push "$image"; then
+      printf 'Pushing image %s failed. Are you logged in?\n' "$image"
+    fi
+
+    docker image rm "$image"
+  done
 fi
 
 printf 'Updating Dockerfile from version %s to version %s\n' "$current" "$latest"
